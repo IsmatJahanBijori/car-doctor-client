@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import logo from '../../../assets/logo.svg'
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../providers/AuthProvider';
 
 const Navbar = () => {
+    const { user, logOut } = useContext(AuthContext)
+
+    const handleLogout = () => {
+        logOut().then(() => {
+            // const user=result.user
+            // console.log(user)
+        }).catch(error => console.log(error.message))
+    }
     const navItems =
         <React.Fragment>
             <li><Link>Home</Link></li>
@@ -10,6 +19,20 @@ const Navbar = () => {
             <li><Link>Services</Link></li>
             <li><Link>Blog</Link></li>
             <li><Link>Contact</Link></li>
+            {/* <li><Link to='/'>LogOut</Link></li>*/}
+
+            {
+                user ?
+                    <div>
+                        <li><Link to='/bookings'>Bookings</Link></li>
+                        <li><Link><button onClick={handleLogout}>LogOut</button></Link></li>
+                    </div>
+                    :
+                    <React.Fragment>
+                        <li><Link to='/login'><button>Login</button></Link></li>
+                        <li><Link to='/register'><button>Register</button></Link></li>
+                    </React.Fragment>
+            }
         </React.Fragment>
     return (
 
@@ -28,7 +51,7 @@ const Navbar = () => {
             {/*lg device */}
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
-                {navItems}
+                    {navItems}
                 </ul>
             </div>
             <div className="navbar-end">

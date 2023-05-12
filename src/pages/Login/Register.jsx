@@ -22,6 +22,8 @@ const Register = () => {
 
     }
     return (
+        <div>
+        <h1 className='text-4xl text-center font-bold'>Register</h1>
         <div className="hero min-h-screen">
             <div className="hero-content flex-col lg:flex-row">
                 <div className="lg:w-1/2 text-center lg:text-left">
@@ -56,6 +58,7 @@ const Register = () => {
 
 
             </div>
+        </div>
         </div>
     );
 };
