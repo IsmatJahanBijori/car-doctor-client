@@ -1,20 +1,22 @@
 import React, { useContext } from 'react';
 import imgLogin from '../../assets/images/login/login.svg'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 
 const Login = () => {
     const { signIn, googleLoginUser } = useContext(AuthContext)
+    const navigate=useNavigate()
     const handleLogin = event => {
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(name, email, password)
+        console.log(email, password)
         signIn(email, password)
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                navigate('/')
             })
             .catch(error => console.log(error));
     }
@@ -22,8 +24,9 @@ const Login = () => {
 
         googleLoginUser()
             .then(result => {
-                const user = result.user;
-                console.log(user);
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                navigate('/')
             })
             .catch(error => console.log(error));
     }
@@ -53,7 +56,7 @@ const Login = () => {
                                 </label>
                             </div>
                             <div className="form-control mt-6">
-                                <Link to='/'><button className="btn btn-primary">Login</button></Link>
+                            <input className="btn btn-primary" type="submit" value="Sign In" />
                                 <Link><button onClick={handleGoogleLogin} className="btn btn-primary">Google Login</button></Link>
                             </div>
                             <p><small>No account?<Link to='/register'>Register</Link> </small></p>

@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import imgLogin from '../../assets/images/login/login.svg'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 
 const Register = () => {
-    const {user, createUser}=useContext(AuthContext)
+    {const {createUser}=useContext(AuthContext)
+    const navigate = useNavigate()
+
     const handleSignUp = event => {
         event.preventDefault();
         const form = event.target;
@@ -15,8 +17,9 @@ const Register = () => {
 
         createUser(email, password)
             .then(result => {
-                const user = result.user;
-                console.log(user)
+                const createdUser = result.user;
+                console.log(createdUser)
+                navigate('/')
             })
             .catch(error => console.log(error))
 
@@ -50,7 +53,8 @@ const Register = () => {
                             <input type="text" placeholder="password" name='password' className="input input-bordered" />
                         </div>
                         <div className="form-control mt-6">
-                           <Link to='/'><button className="btn btn-primary">SignUp</button></Link>
+                            <input className="btn btn-primary" type="submit" value="Sign Up" />
+                          
                         </div>
                         <p><small>Have an account?<Link to='/login'>Login</Link> </small></p>
                     </div>
@@ -60,7 +64,8 @@ const Register = () => {
             </div>
         </div>
         </div>
-    );
+    );}
+   
 };
 
 export default Register;

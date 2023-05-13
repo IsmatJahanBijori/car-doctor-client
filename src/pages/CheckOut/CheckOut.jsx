@@ -5,18 +5,22 @@ import { AuthContext } from '../../providers/AuthProvider';
 const CheckOut = () => {
     const checkout = useLoaderData()
     const { user } = useContext(AuthContext)
-    const { title, img, price } = checkout
+    const { title, _id, price, img } = checkout
     const handleCheckOut = event => {
         event.preventDefault()
         const form = event.target;
         const name = form.name.value;
         const email = form.email.value;
         const date = form.date.value;
+        // const email = user?.email;
         const orderDetails = {
-            CustomerName: name,
-            image: img,
-            service_title: title,
-            email: email, OrderDate: date, Price: price
+            customerName: name, 
+            email, 
+            img,
+            date, 
+            service: title,
+            service_id: _id, 
+            price: price
         }
         console.log(orderDetails)
         fetch('http://localhost:5000/bookings',
@@ -41,7 +45,7 @@ const CheckOut = () => {
                         <label className="label">
                             <span className="label-text">Name</span>
                         </label>
-                        <input type="text" placeholder="name" name="name" className="input input-bordered" />
+                        <input type="text" placeholder="name" name="name" defaultValue={user?.displayName} className="input input-bordered" />
                     </div>
                     <div className="form-control">
                         <label className="label">
@@ -53,7 +57,7 @@ const CheckOut = () => {
                         <label className="label">
                             <span className="label-text">Email</span>
                         </label>
-                        <input type="email" placeholder="email" name='email' className="input input-bordered" />
+                        <input type="email" placeholder="email" name='email' defaultValue={user?.email} className="input input-bordered" />
                     </div>
                     <div className="form-control">
                         <label className="label">
@@ -68,6 +72,7 @@ const CheckOut = () => {
             </form>
         </div>
     );
+    
 };
-//  <div className="hero min-h-screen bg-slate-200 mb-20"></div>
+
 export default CheckOut;
