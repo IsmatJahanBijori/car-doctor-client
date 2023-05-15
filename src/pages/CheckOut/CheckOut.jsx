@@ -23,7 +23,7 @@ const CheckOut = () => {
             price: price
         }
         console.log(orderDetails)
-        fetch('http://localhost:5000/bookings',
+        fetch('https://car-doctor-server-iota-nine.vercel.app/bookings',
             {
                 method: 'POST',
                 headers: {

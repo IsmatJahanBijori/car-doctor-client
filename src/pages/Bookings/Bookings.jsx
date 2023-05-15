@@ -8,16 +8,23 @@ const Bookings = () => {
     // const booking=useLoaderData() 
     // console.log(booking)
     const [bookings, setBookings] = useState([])
-    const url = `http://localhost:5000/bookings?email=${user.email}`
+    const url = `https://car-doctor-server-iota-nine.vercel.app/bookings?email=${user.email}`
     useEffect(() => {
-        fetch(url).then(res => res.json()).then(data => setBookings(data))
+        fetch(url,{
+            method:'GET',
+            headers:{
+                authorization: `Bearer ${localStorage.getItem('car-access-token')}`
+            },
+        })
+        .then(res => res.json())
+        .then(data => setBookings(data))
     }, [url])
 
-    // console.log(bookings)
+
 
     // delete
     const handleDelete = id => {
-        fetch(`http://localhost:5000/bookings/${id}`,
+        fetch(`https://car-doctor-server-iota-nine.vercel.app/bookings/${id}`,
             {
                 method: 'DELETE'
             })
@@ -37,7 +44,7 @@ const Bookings = () => {
 
     // update
     const handleUpdate=id=>{
-        fetch(`http://localhost:5000/bookings/${id}`,
+        fetch(`https://car-doctor-server-iota-nine.vercel.app/bookings/${id}`,
             {
                 method: 'PATCH',
                 headers:{

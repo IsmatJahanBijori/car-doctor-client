@@ -25,6 +25,28 @@ const AuthProvider = ({ children }) => {
             setUser(currentUser);
             console.log('current user', currentUser);
             setLoading(false);
+
+            // na hole kete dibo
+            if(currentUser && currentUser.email){
+                const loggedUser = {
+                    email: currentUser.email
+                }
+                fetch('https://car-doctor-server-iota-nine.vercel.app/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(loggedUser)
+                }).then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+                        localStorage.setItem('car-access-token', data.token)
+                        // navigate(from, { replace: true });
+                    })
+            }
+            else{
+                localStorage.removeItem('car-access-token')
+            }
         });
         return () => {
             return unsubscribe();

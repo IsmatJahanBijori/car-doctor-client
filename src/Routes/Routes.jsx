@@ -33,17 +33,17 @@ const router = createBrowserRouter([
             {
                 path: '/services/:id',
                 element: <ServicesDetails/>,
-                loader:({params})=>fetch(`http://localhost:5000/services/${params.id}`)
+                loader:({params})=>fetch(`https://car-doctor-server-iota-nine.vercel.app/services/${params.id}`)
             },
             {
                 path: '/checkout/:id',
                 element: <PrivateRoute><CheckOut/></PrivateRoute>,
-                loader:({params})=>fetch(`http://localhost:5000/service/${params.id}`)
+                loader:({params})=>fetch(`https://car-doctor-server-iota-nine.vercel.app/service/${params.id}`)
             },
             {
                 path: '/bookings',
                 element: <PrivateRoute><Bookings/></PrivateRoute>,
-                // loader:()=>fetch('http://localhost:5000/bookings')
+               
             },
             
             
@@ -52,9 +52,3 @@ const router = createBrowserRouter([
 ]);
 
 export default router
-
-{/**{
-                path: '/servicesDetails/:id',
-                element: <ServicesDetails/>,
-                loader:({params})=>fetch(`http://localhost:5000/services/${params.id}`)
-            }, */}
